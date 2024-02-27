@@ -1,3 +1,4 @@
+import MobileNavbar from "@/components/Navbar/MobileNavbar";
 import SideNavbar from "@/components/Navbar/SideNavbar";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -5,6 +6,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="w-full md:max-w-6xl mx-auto">
       <div className="fixed top-0 z-30 w-full">
         <SideNavbar />
+      </div>
+      <div className="fixed bottom-0 z-30 w-full">
+        <MobileNavbar />
       </div>
       <div className="ml-0 md:ml-64 bg-slate-400/15 min-h-screen">
         {children}
