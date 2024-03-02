@@ -9,7 +9,7 @@ const UserCard = () => {
     setIsFollowing(!isFollowing);
   };
   return (
-    <div className="flex flex-row items-center justify-between py-4 px-4 border-b border-gray-500/20">
+    <div className="flex flex-row items-center justify-between p-4 border-b border-gray-500/20">
       <Link href="/" className="flex flex-row gap-2 items-center w-full">
         <div className="h-10 w-10 overflow-hidden rounded-full flex items-center justify-center">
           <img

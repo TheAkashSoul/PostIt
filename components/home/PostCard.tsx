@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PostEvents from "./PostEvents";
 
 const PostCard = () => {
@@ -5,18 +6,21 @@ const PostCard = () => {
     <div className="flex flex-row gap-2 w-full items-start border-b border-gray-600/20 md:p-4 p-4">
       <div>
         {/* profile photo */}
-        <div className="h-10 w-10 bg-black overflow-hidden rounded-full flex items-center justify-center">
+        <Link
+          href="/profile"
+          className="h-10 w-10 bg-black overflow-hidden rounded-full flex items-center justify-center"
+        >
           <img />
-        </div>
+        </Link>
       </div>
       <div className="flex flex-col">
         {/* profile name */}
-        <div className="flex flex-col items-start">
+        <Link href="/profile" className="flex flex-col items-start">
           <p className="font-semibold text-md leading-tight">Profile Name</p>
           <p className="font-light text-xs leading-tight text-gray-700">
             profile_username
           </p>
-        </div>
+        </Link>
         {/* description */}
         <div>
           <p className="font-medium text-sm">
