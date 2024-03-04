@@ -1,3 +1,5 @@
+import PostCard from "@/components/home/PostCard";
+import ProfileDetails from "@/components/profile/ProfileDetails";
 import Link from "next/link";
 import { CiSettings } from "react-icons/ci";
 
@@ -9,6 +11,17 @@ const Profile = () => {
         <Link href="/settings" className="mr-2 block md:hidden">
           <CiSettings size={22} />
         </Link>
+      </div>
+
+      <div>
+        <ProfileDetails />
+      </div>
+      <div>
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
       </div>
     </main>
   );

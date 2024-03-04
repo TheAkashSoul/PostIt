@@ -10,7 +10,7 @@ const Explore = () => {
           <input
             type="search"
             placeholder="Search..."
-            className="w-full h-full bg-transparent outline-none"
+            className="w-full h-full bg-transparent outline-none text-foreground dark:text-background"
           />
         </div>
       </div>

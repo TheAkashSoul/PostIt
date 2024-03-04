@@ -17,7 +17,7 @@ const PostCard = () => {
         {/* profile name */}
         <Link href="/profile" className="flex flex-col items-start">
           <p className="font-semibold text-md leading-tight">Profile Name</p>
-          <p className="font-light text-xs leading-tight text-gray-700">
+          <p className="font-light text-xs leading-tight text-gray-400">
             profile_username
           </p>
         </Link>
