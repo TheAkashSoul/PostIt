@@ -5,7 +5,7 @@ import User from "@/models/userSchema";
 import bcrypt from "bcrypt";
 import { SessionStrategy } from "next-auth";
 
-export const authOptions = {
+const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
