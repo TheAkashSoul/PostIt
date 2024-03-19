@@ -10,6 +10,7 @@ import { MdOutlineSettings } from "react-icons/md";
 import { MdOutlinePersonOutline } from "react-icons/md";
 import { AiOutlineLogout } from "react-icons/ai";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 const SideNavbar = () => {
   const pathName = usePathname();
@@ -95,7 +96,10 @@ const SideNavbar = () => {
             className="h-20 w-20 object-cover brightness-110"
           />
         </div>
-        <button className="flex flex-row items-center gap-1 group-hover:scale-105 transition-all">
+        <button
+          onClick={() => signOut()}
+          className="flex flex-row items-center gap-1 group-hover:scale-105 transition-all"
+        >
           <span className="text-md font-semibold">Logout</span>
           <AiOutlineLogout size={16} className="group-hover:text-red-700" />
         </button>

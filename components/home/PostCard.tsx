@@ -2,6 +2,7 @@ import Link from "next/link";
 import PostEvents from "./PostEvents";
 
 const PostCard = () => {
+  // console.log(user.posts);
   return (
     <div className="flex flex-row gap-2 w-full items-start border-b border-gray-600/20 md:p-4 p-4">
       <div>
@@ -35,7 +36,7 @@ const PostCard = () => {
           <img
             src="https://images.unsplash.com/photo-1707327956851-30a531b70cda?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw1Nnx8fGVufDB8fHx8fA%3D%3D"
             alt="image"
-            className="h-full max-h-96 w-auto max-w-full object-contain"
+            className="h-fit max-h-96 w-auto max-w-full object-contain"
           />
         </div>
 

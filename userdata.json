@@ -1,0 +1,236 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "username": "johndoe",
+      "image_uri": "https://example.com/johndoe.jpg",
+      "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "posts": [
+        {
+          "postid": 1,
+          "description": "This is my first post!",
+          "image_url": "https://example.com/post1.jpg",
+          "likes": [{ "userid": 2 }, { "userid": 3 }],
+          "comments": [
+            { "commentid": 1, "userid": 4, "comment": "Nice post!" },
+            { "commentid": 2, "userid": 5, "comment": "Keep it up!" }
+          ]
+        },
+        {
+          "postid": 2,
+          "description": "Another post here.",
+          "image_url": "https://example.com/post2.jpg",
+          "likes": [{ "userid": 3 }],
+          "comments": [
+            { "commentid": 3, "userid": 2, "comment": "Great shot!" },
+            { "commentid": 4, "userid": 5, "comment": "Love this!" }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 2 }, { "followerid": 3 }],
+      "following": [{ "followingid": 4 }, { "followingid": 5 }]
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "username": "janesmith",
+      "image_uri": "https://example.com/janesmith.jpg",
+      "bio": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
+      "posts": [
+        {
+          "postid": 3,
+          "description": "Yet another post!",
+          "image_url": "https://example.com/post3.jpg",
+          "likes": [{ "userid": 1 }, { "userid": 3 }],
+          "comments": [
+            { "commentid": 5, "userid": 4, "comment": "Awesome!" },
+            { "commentid": 6, "userid": 1, "comment": "Fantastic!" }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 1 }, { "followerid": 3 }],
+      "following": [{ "followingid": 4 }, { "followingid": 5 }]
+    },
+    {
+      "id": 3,
+      "name": "Alice Johnson",
+      "username": "alicejohnson",
+      "image_uri": "https://example.com/alicejohnson.jpg",
+      "bio": "Hello, I'm Alice!",
+      "posts": [
+        {
+          "postid": 4,
+          "description": "Just another day.",
+          "image_url": "https://example.com/post4.jpg",
+          "likes": [{ "userid": 1 }, { "userid": 2 }],
+          "comments": [
+            { "commentid": 7, "userid": 1, "comment": "Nice one!" },
+            { "commentid": 8, "userid": 2, "comment": "Beautiful!" }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 1 }, { "followerid": 2 }],
+      "following": [{ "followingid": 1 }, { "followingid": 2 }]
+    },
+    {
+      "id": 4,
+      "name": "Emily Brown",
+      "username": "emilybrown",
+      "image_uri": "https://example.com/emilybrown.jpg",
+      "bio": "Life is an adventure!",
+      "posts": [
+        {
+          "postid": 5,
+          "description": "Exploring new places.",
+          "image_url": "https://example.com/post5.jpg",
+          "likes": [{ "userid": 3 }],
+          "comments": [
+            { "commentid": 9, "userid": 1, "comment": "Looks amazing!" },
+            {
+              "commentid": 10,
+              "userid": 2,
+              "comment": "Wish I could be there!"
+            }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 1 }, { "followerid": 3 }],
+      "following": [{ "followingid": 1 }, { "followingid": 3 }]
+    },
+    {
+      "id": 5,
+      "name": "Michael Lee",
+      "username": "michaellee",
+      "image_uri": "https://example.com/michaellee.jpg",
+      "bio": "Software engineer by day, musician by night.",
+      "posts": [
+        {
+          "postid": 6,
+          "description": "Jamming session last night was epic!",
+          "image_url": "https://example.com/post6.jpg",
+          "likes": [{ "userid": 3 }, { "userid": 4 }],
+          "comments": [
+            {
+              "commentid": 11,
+              "userid": 2,
+              "comment": "Wish I could've been there!"
+            },
+            { "commentid": 12, "userid": 5, "comment": "Looks like a blast!" }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 2 }, { "followerid": 4 }],
+      "following": [{ "followingid": 1 }, { "followingid": 3 }]
+    },
+    {
+      "id": 6,
+      "name": "Sophia Rodriguez",
+      "username": "sophiarodriguez",
+      "image_uri": "https://example.com/sophiarodriguez.jpg",
+      "bio": "Coffee lover ☕️ | Travel enthusiast ✈️",
+      "posts": [
+        {
+          "postid": 7,
+          "description": "Enjoying a quiet morning at my favorite café.",
+          "image_url": "https://example.com/post7.jpg",
+          "likes": [{ "userid": 1 }, { "userid": 4 }],
+          "comments": [
+            { "commentid": 13, "userid": 2, "comment": "Looks cozy!" },
+            { "commentid": 14, "userid": 3, "comment": "Wish I was there too!" }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 2 }, { "followerid": 5 }],
+      "following": [{ "followingid": 1 }, { "followingid": 4 }]
+    },
+    {
+      "id": 7,
+      "name": "Olivia Nguyen",
+      "username": "olivianguyen",
+      "image_uri": "https://example.com/olivianguyen.jpg",
+      "bio": "Dreamer | Photographer | Nature lover 🌿",
+      "posts": [
+        {
+          "postid": 8,
+          "description": "Captured this stunning sunset!",
+          "image_url": "https://example.com/post8.jpg",
+          "likes": [{ "userid": 2 }, { "userid": 6 }],
+          "comments": [
+            { "commentid": 15, "userid": 5, "comment": "Wow, breathtaking!" },
+            { "commentid": 16, "userid": 4, "comment": "Nature's beauty!" }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 3 }, { "followerid": 6 }],
+      "following": [{ "followingid": 2 }, { "followingid": 5 }]
+    },
+    {
+      "id": 8,
+      "name": "Daniel Kim",
+      "username": "danielkim",
+      "image_uri": "https://example.com/danielkim.jpg",
+      "bio": "Tech enthusiast | Gamer | Foodie 🍔",
+      "posts": [
+        {
+          "postid": 9,
+          "description": "New gaming setup!",
+          "image_url": "https://example.com/post9.jpg",
+          "likes": [{ "userid": 1 }, { "userid": 7 }],
+          "comments": [
+            { "commentid": 17, "userid": 6, "comment": "Awesome setup!" },
+            { "commentid": 18, "userid": 3, "comment": "I need one too!" }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 1 }, { "followerid": 5 }],
+      "following": [{ "followingid": 3 }, { "followingid": 6 }]
+    },
+    {
+      "id": 9,
+      "name": "Emma Thompson",
+      "username": "emmathompson",
+      "image_uri": "https://example.com/emmathompson.jpg",
+      "bio": "Bookworm | Tea enthusiast | Writer ✍️",
+      "posts": [
+        {
+          "postid": 10,
+          "description": "Cozy reading corner vibes.",
+          "image_url": "https://example.com/post10.jpg",
+          "likes": [{ "userid": 8 }, { "userid": 6 }],
+          "comments": [
+            { "commentid": 19, "userid": 7, "comment": "Love your setup!" },
+            { "commentid": 20, "userid": 5, "comment": "Looks so peaceful!" }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 7 }, { "followerid": 8 }],
+      "following": [{ "followingid": 6 }, { "followingid": 7 }]
+    },
+    {
+      "id": 10,
+      "name": "David Wilson",
+      "username": "davidwilson",
+      "image_uri": "https://example.com/davidwilson.jpg",
+      "bio": "Fitness enthusiast | Personal trainer 💪",
+      "posts": [
+        {
+          "postid": 11,
+          "description": "Morning workout session complete!",
+          "image_url": "https://example.com/post11.jpg",
+          "likes": [{ "userid": 9 }, { "userid": 7 }],
+          "comments": [
+            { "commentid": 21, "userid": 8, "comment": "Great dedication!" },
+            {
+              "commentid": 22,
+              "userid": 6,
+              "comment": "Keep up the good work!"
+            }
+          ]
+        }
+      ],
+      "followers": [{ "followerid": 6 }, { "followerid": 9 }],
+      "following": [{ "followingid": 7 }, { "followingid": 8 }]
+    }
+  ]
+}
