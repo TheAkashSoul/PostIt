@@ -20,6 +20,7 @@ const Post = () => {
     const getUserId = async () => {
       const userData = await fetchUserData();
       setUserId(userData?.userData?._id);
+      console.log(userData);
     };
     getUserId();
   }, []);
@@ -63,6 +64,7 @@ const Post = () => {
       const response = await res.json();
       if (response?.error) {
         setErrorPosting(response.error);
+        console.log(response.error);
         return;
       }
       setDescription("");
