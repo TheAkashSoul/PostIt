@@ -7,9 +7,13 @@ const useUserData = () => {
   const fetchUserData = async () => {
     if (status === "authenticated") {
       try {
-        const res = await fetch(
-          `/api/getuser?email=${encodeURIComponent(email)}`
-        );
+        const res = await fetch("/api/getuser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        });
 
         const data = await res.json();
         // console.log(data);
