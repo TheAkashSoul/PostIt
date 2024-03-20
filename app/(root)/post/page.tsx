@@ -1,14 +1,76 @@
 "use client";
 
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import useUserData from "@/services/UserData";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Post = () => {
+  const { fetchUserData } = useUserData();
   const [imageUrl, setImageUrl] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
+  const [errorPosting, setErrorPosting] = useState<string>("");
+  const [canPost, setCanPost] = useState<boolean>(false);
+  const [postSuccess, setPostSuccess] = useState<string>("");
 
-  const handlePostSubmit = () => {
-    console.log(description, imageUrl);
+  const router = useRouter();
+
+  useEffect(() => {
+    const getUserId = async () => {
+      const userData = await fetchUserData();
+      setUserId(userData?.userData?._id);
+    };
+    getUserId();
+  }, []);
+
+  const trimDescription =
+    description.length <= 120 ? description : description.slice(0, 120);
+  const postData = {
+    description: trimDescription,
+    imageUrl: imageUrl,
+    user: userId,
+  };
+
+  useEffect(() => {
+    // check if the image url public url or not
+    const validExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"];
+    const urlLower = imageUrl?.toLowerCase();
+    const isValidExtension = validExtensions.some((ext) =>
+      urlLower.endsWith(ext)
+    );
+
+    if (description.trim() && description.length <= 120 && isValidExtension) {
+      setCanPost(true);
+    } else {
+      setCanPost(false);
+    }
+  }, [description, imageUrl]);
+
+  setTimeout(() => {
+    setPostSuccess("");
+  }, 10000);
+
+  const handlePostSubmit = async () => {
+    try {
+      const res = await fetch("/api/post", {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json",
+        },
+        body: JSON.stringify(postData),
+      });
+      const response = await res.json();
+      if (response?.error) {
+        setErrorPosting(response.error);
+        return;
+      }
+      setDescription("");
+      setImageUrl("");
+      setPostSuccess("Post Successfully Uploaded");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -17,7 +79,7 @@ const Post = () => {
         <h2 className="md:ml-4 ml-2 text-lg font-semibold">Post</h2>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 px-2 md:px-0">
         <Textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -45,13 +107,28 @@ const Post = () => {
         </div>
         <div className="mt-4 md:px-8 px-2 flex items-center justify-center">
           <button
+            disabled={!canPost}
             onClick={handlePostSubmit}
-            className="bg-blue-500 hover:bg-blue-500/85 w-full h-12 rounded-full py-2 text-lg font-bold text-background"
+            className={`bg-blue-500 hover:bg-blue-500/85 w-full h-12 rounded-full py-2 text-lg font-bold text-background ${
+              !canPost && "disabled:cursor-not-allowed disabled:opacity-50"
+            }`}
           >
             Post IT
           </button>
         </div>
       </div>
+
+      {errorPosting && (
+        <p className="text-center mt-10 text-red-600 font-bold text-lg px-2">
+          Something went wrong try later or SignIn again
+        </p>
+      )}
+
+      {postSuccess && (
+        <p className="text-center mt-10 text-green-600 font-bold text-lg px-2">
+          {postSuccess}
+        </p>
+      )}
     </main>
   );
 };

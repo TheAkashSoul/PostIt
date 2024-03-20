@@ -32,11 +32,11 @@ const PostCard = () => {
           </p>
         </div>
         {/* image */}
-        <div className="my-3 overflow-hidden w-fit rounded-xl">
+        <div className="my-3 overflow-hidden w-fit h-fit rounded-xl">
           <img
             src="https://images.unsplash.com/photo-1707327956851-30a531b70cda?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw1Nnx8fGVufDB8fHx8fA%3D%3D"
             alt="image"
-            className="h-fit max-h-96 w-auto max-w-full object-contain"
+            className="h-full max-h-96 w-auto max-w-full object-contain"
           />
         </div>
 
