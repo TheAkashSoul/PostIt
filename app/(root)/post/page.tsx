@@ -2,7 +2,6 @@
 
 import { Textarea } from "@/components/ui/textarea";
 import useUserData from "@/services/UserData";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Post = () => {
@@ -14,13 +13,10 @@ const Post = () => {
   const [canPost, setCanPost] = useState<boolean>(false);
   const [postSuccess, setPostSuccess] = useState<string>("");
 
-  const router = useRouter();
-
   useEffect(() => {
     const getUserId = async () => {
       const userData = await fetchUserData();
       setUserId(userData?.userData?._id);
-      console.log(userData);
     };
     getUserId();
   }, []);
@@ -64,7 +60,6 @@ const Post = () => {
       const response = await res.json();
       if (response?.error) {
         setErrorPosting(response.error);
-        console.log(response.error);
         return;
       }
       setDescription("");
