@@ -7,9 +7,24 @@ import { LuPlusSquare } from "react-icons/lu";
 import { FiBell } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import useUserData from "@/services/UserData";
 
 const MobileNavbar = () => {
+  const [userName, setUserName] = useState<string>("");
+
   const pathName = usePathname();
+  const { fetchUserData } = useUserData();
+
+  useEffect(() => {
+    const getUserId = async () => {
+      const userData = await fetchUserData();
+      setUserName(userData?.userData?.username);
+    };
+    if (pathName === "/") {
+      getUserId();
+    }
+  }, [pathName]);
 
   return (
     <div className="flex md:hidden w-full items-center justify-around h-14 border-t border-gray-700/5 bg-background/10 backdrop-blur-sm">
@@ -50,9 +65,9 @@ const MobileNavbar = () => {
       </Link>
 
       <Link
-        href="/profile"
+        href={`/${userName}`}
         className={`${
-          pathName === "/profile" ? "bg-blue-500/15" : ""
+          pathName === `/${userName}` ? "bg-blue-500/15" : ""
         } p-2 rounded-full`}
       >
         <CgProfile size={20} />

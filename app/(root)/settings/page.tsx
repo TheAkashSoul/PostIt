@@ -1,8 +1,10 @@
 "use client";
 
 import Theme from "@/components/settings/Theme";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { AiOutlineLogout } from "react-icons/ai";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoMdBookmark } from "react-icons/io";
 
@@ -26,6 +28,15 @@ const Settings = () => {
         </span>
       </Link>
       <Theme />
+      <div className="p-4 mt-10">
+        <button
+          onClick={() => signOut()}
+          className="flex flex-row items-center gap-1 group-hover:scale-105 transition-all"
+        >
+          <span className="text-md font-semibold text-red-600">Logout</span>
+          <AiOutlineLogout size={16} className="text-red-700" />
+        </button>
+      </div>
     </main>
   );
 };

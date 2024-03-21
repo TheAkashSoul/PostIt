@@ -5,9 +5,31 @@ export default async function middleware(req: NextRequest) {
   const token = await getToken({ req });
   const { pathname } = req.nextUrl;
 
-  if (!token && !["/signin", "/signup"].includes(pathname)) {
+  const staticPaths = [
+    "/",
+    "/explore",
+    "/notifications",
+    "/post",
+    "/saved",
+    "/settings",
+    "/signin",
+    "/signup",
+  ];
+
+  const isDynamicUserRoute = !staticPaths.some((path) =>
+    pathname.startsWith(path)
+  );
+
+  if (
+    !token &&
+    (isDynamicUserRoute || !["/signin", "/signup"].includes(pathname))
+  ) {
     return NextResponse.redirect(new URL("/signin", req.url));
   }
+
+  // if (!token && !["/signin", "/signup"].includes(pathname)) {
+  //   return NextResponse.redirect(new URL("/signin", req.url));
+  // }
 
   if (token && ["/signin", "/signup"].includes(pathname)) {
     return NextResponse.redirect(new URL("/", req.url));
@@ -16,5 +38,15 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/explore", "/notifications", "/post", "/signin", "/signup"],
+  matcher: [
+    "/",
+    "/explore",
+    "/notifications",
+    "/post",
+    "/saved",
+    "/:username",
+    "/settings",
+    "/signin",
+    "/signup",
+  ],
 };
