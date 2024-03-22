@@ -34,6 +34,7 @@ const authOptions = {
               return null;
             }
 
+            // console.log("user from db", user);
             return user;
           } catch (error) {
             console.log("auth page", error);
@@ -45,6 +46,22 @@ const authOptions = {
   ],
   session: {
     strategy: "jwt" as SessionStrategy,
+  },
+  callbacks: {
+    async jwt({ token, user }: { token: any; user: any }) {
+      if (user) {
+        token.username = user.username;
+      }
+      // console.log("token, user in jwt", token, user);
+      return token;
+    },
+    async session({ session, token }: { session: any; token: any }) {
+      if (token) {
+        session.user.username = token.username;
+      }
+      // console.log("session", session);
+      return session;
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {

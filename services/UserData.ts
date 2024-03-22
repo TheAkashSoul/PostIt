@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 const useUserData = () => {
   const { data: session, status } = useSession();
   const email = session?.user?.email || "";
+  // console.log(session);
 
   const fetchUserData = async () => {
     if (status === "authenticated") {

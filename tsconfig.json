@@ -28,7 +28,8 @@
     ".next/types/**/*.ts",
     "app/Providers.ts",
     "app/api/auth/[...nextauth]/route.ts",
-    "app/(auth)/signup/page.jsx"
+    "app/(auth)/signup/page.jsx",
+    "app/QueryProvider.js"
   ],
   "exclude": ["node_modules"]
 }

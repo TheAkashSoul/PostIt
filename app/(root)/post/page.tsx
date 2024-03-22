@@ -13,13 +13,13 @@ const Post = () => {
   const [canPost, setCanPost] = useState<boolean>(false);
   const [postSuccess, setPostSuccess] = useState<string>("");
 
-  useEffect(() => {
-    const getUserId = async () => {
-      const userData = await fetchUserData();
-      setUserId(userData?.userData?._id);
-    };
-    getUserId();
-  }, []);
+  // useEffect(() => {
+  //   const getUserId = async () => {
+  //     const userData = await fetchUserData();
+  //     setUserId(userData?.userData?._id);
+  //   };
+  //   getUserId();
+  // }, []);
 
   const trimDescription =
     description.length <= 120 ? description : description.slice(0, 120);

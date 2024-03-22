@@ -20,6 +20,43 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    displaypic: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    bio: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    followers: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+      default: [],
+    },
+    following: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+      default: [],
+    },
+    posts: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Post",
+        },
+      ],
+      default: [],
+    },
   },
   { timestamps: true }
 );

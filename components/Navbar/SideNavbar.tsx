@@ -9,23 +9,12 @@ import { MdBookmarkBorder } from "react-icons/md";
 import { MdOutlineSettings } from "react-icons/md";
 import { MdOutlinePersonOutline } from "react-icons/md";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import useUserData from "@/services/UserData";
+import { useSession } from "next-auth/react";
 
 const SideNavbar = () => {
-  const [userName, setUserName] = useState<string>("");
+  const { data: session } = useSession();
+  const username = session?.user?.username;
   const pathName = usePathname();
-  const { fetchUserData } = useUserData();
-
-  useEffect(() => {
-    const getUserId = async () => {
-      const userData = await fetchUserData();
-      setUserName(userData?.userData?.username);
-    };
-    if (pathName === "/") {
-      getUserId();
-    }
-  }, [pathName]);
 
   return (
     <div className="hidden md:flex flex-col w-64 h-screen border-x border-gray-700/5 px-4">
@@ -84,9 +73,9 @@ const SideNavbar = () => {
         </Link>
 
         <Link
-          href={`/${userName}`}
+          href={`/${username}`}
           className={`flex flex-row items-center space-x-2 hover:bg-blue-500/10 p-2 rounded-md ${
-            pathName === `/${userName}` ? "bg-blue-500/15" : ""
+            pathName === `/${username}` ? "bg-blue-500/15" : ""
           }`}
         >
           <MdOutlinePersonOutline size={26} />
