@@ -39,9 +39,9 @@ const ProfileDetails = ({ details }: { details: User }) => {
           {/*  */}
         </div>
 
-        <div className="flex flex-col items-start mt-1">
-          <p className="font-semibold text-xs">{details?.name}</p>
-          <p className="font-normal text-xs">{details?.bio}</p>
+        <div className="flex flex-col items-start">
+          <p className="font-semibold text-sm">{details?.name}</p>
+          <p className="font-normal text-xs leading-none">{details?.bio}</p>
         </div>
 
         <button className="bg-blue-500 hover:bg-blue-500/90 px-6 py-1 font-semibold text-base text-background rounded-sm w-full md:w-fit my-3">

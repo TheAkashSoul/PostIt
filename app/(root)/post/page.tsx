@@ -1,32 +1,48 @@
 "use client";
 
 import { Textarea } from "@/components/ui/textarea";
-import useUserData from "@/services/UserData";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
 
 const Post = () => {
-  const { fetchUserData } = useUserData();
+  const { data: session } = useSession();
+  const username = session?.user?.username;
+
   const [imageUrl, setImageUrl] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [userId, setUserId] = useState<string>("");
   const [errorPosting, setErrorPosting] = useState<string>("");
   const [canPost, setCanPost] = useState<boolean>(false);
   const [postSuccess, setPostSuccess] = useState<string>("");
 
-  // useEffect(() => {
-  //   const getUserId = async () => {
-  //     const userData = await fetchUserData();
-  //     setUserId(userData?.userData?._id);
-  //   };
-  //   getUserId();
-  // }, []);
+  const fetchUserId = async () => {
+    try {
+      const response = await fetch("/api/getuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username }),
+      });
+
+      return response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["userId"],
+    queryFn: fetchUserId,
+  });
+  const user = data?.userData?._id;
 
   const trimDescription =
     description.length <= 120 ? description : description.slice(0, 120);
   const postData = {
     description: trimDescription,
     imageUrl: imageUrl,
-    user: userId,
+    user: user,
   };
 
   useEffect(() => {
@@ -44,9 +60,12 @@ const Post = () => {
     }
   }, [description, imageUrl]);
 
-  setTimeout(() => {
-    setPostSuccess("");
-  }, 10000);
+  useEffect(() => {
+    setTimeout(() => {
+      setPostSuccess("");
+      setErrorPosting("");
+    }, 10000);
+  }, [postSuccess, errorPosting]);
 
   const handlePostSubmit = async () => {
     try {
