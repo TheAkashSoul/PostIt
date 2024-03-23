@@ -5,17 +5,13 @@ import ProfileDetails from "@/components/profile/ProfileDetails";
 import Link from "next/link";
 import { CiSettings } from "react-icons/ci";
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 
 type params = {
   profile: string;
 };
 const Profile = ({ params }: { params: params }) => {
-  // const profileUser = params?.profile;
-  // console.log(profileUser);
-  const { data: session, status } = useSession();
-  const email = session?.user?.email || "";
-  // console.log(email);
+  const username = params?.profile;
+  // console.log(username);
 
   const fetchUser = async () => {
     try {
@@ -24,7 +20,7 @@ const Profile = ({ params }: { params: params }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ username }),
       });
 
       return response.json();
@@ -38,8 +34,10 @@ const Profile = ({ params }: { params: params }) => {
     queryFn: fetchUser,
   });
 
+  const userDetails = data?.userData;
+
   // if (data) {
-  //   console.log("data", data?.userData);
+  //   console.log("data", userDetails);
   // }
   // if (error) {
   //   console.log("error", error);
@@ -56,14 +54,10 @@ const Profile = ({ params }: { params: params }) => {
         </Link>
       </div>
 
-      <div>
-        <ProfileDetails />
+      <div className=" px-2 md:px-10">
+        <ProfileDetails details={userDetails} />
       </div>
       <div>
-        {/* {userdata.users?.map((user) => (
-          <PostCard user={user} />
-        ))} */}
-
         <PostCard />
         <PostCard />
         <PostCard />

@@ -7,20 +7,13 @@ import { LuPlusSquare } from "react-icons/lu";
 import { FiBell } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 const MobileNavbar = () => {
-  const [userName, setUserName] = useState<string>("");
+  const { data: session } = useSession();
+  const username = session?.user?.username;
 
   const pathName = usePathname();
-
-  // setTimeout(() => {
-  //   const getUserId = async () => {
-  //     const userData = await fetchUserData();
-  //     setUserName(userData?.userData?.username);
-  //   };
-  //   getUserId();
-  // }, 0.1);
 
   return (
     <div className="flex md:hidden w-full items-center justify-around h-14 border-t border-gray-700/5 bg-background/10 backdrop-blur-sm">
@@ -61,9 +54,9 @@ const MobileNavbar = () => {
       </Link>
 
       <Link
-        href={`/${userName}`}
+        href={`/${username}`}
         className={`${
-          pathName === `/${userName}` ? "bg-blue-500/15" : ""
+          pathName === `/${username}` ? "bg-blue-500/15" : ""
         } p-2 rounded-full`}
       >
         <CgProfile size={20} />
