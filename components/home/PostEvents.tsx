@@ -3,28 +3,54 @@
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { FaRegComment } from "react-icons/fa6";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
-import { GoShare } from "react-icons/go";
-import { useState } from "react";
+import { HiOutlineTrash } from "react-icons/hi2";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
 
-const PostEvents = () => {
-  const [isLike, setIsLike] = useState<boolean>(false);
-  const [likeCount, setLikeCount] = useState<number>(24);
+const PostEvents = ({ likes, comments, postId, userId, username }: any) => {
+  const { data: session, status } = useSession();
+  // console.log("username", username, "session", session?.user?.username);
+  const isLiked = likes?.some((like: string) => like === userId);
+  // console.log("IS liked", isLiked, "likes", likes, "userid", userId);
+  const sessionUsername = session?.user?.username;
+  const [isLike, setIsLike] = useState<boolean>(isLiked);
+  const [likeCount, setLikeCount] = useState<number>(likes?.length);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
-  const likeToggle = () => {
-    if (isLike) {
-      setLikeCount((likeCount) => likeCount - 1);
-      setIsLike(!isLike);
-    } else {
-      setLikeCount((likeCount) => likeCount + 1);
-      setIsLike(!isLike);
-    }
+  const canDelete = sessionUsername === username ? true : false;
+  // console.log(likes);
+
+  const likeToggle = async () => {
+    const response = await fetch("/api/likes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ postId, userId }),
+    });
+    setIsLike((prevState) => !prevState);
+    setLikeCount((prevCount) => (isLike ? prevCount - 1 : prevCount + 1));
+    return response.json();
   };
 
   const savedToggle = () => {
     setIsSaved(!isSaved);
   };
 
+  const deletePost = async () => {
+    try {
+      const response = await fetch("/api/postdelete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId, userId }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex flex-row items-center justify-between">
       <button
@@ -42,7 +68,7 @@ const PostEvents = () => {
 
       <button className="flex flex-row items-center gap-1 hover:text-[#00BA7c] border-none">
         <FaRegComment size={16} />
-        <p className="font-light text-xs">124</p>
+        <p className="font-light text-xs">{comments?.length}</p>
       </button>
 
       <button
@@ -51,10 +77,14 @@ const PostEvents = () => {
       >
         {isSaved ? <IoBookmark size={18} /> : <IoBookmarkOutline size={18} />}
       </button>
-
-      <button className="flex items-center hover:text-[#FFCC4D] border-none">
-        <GoShare size={18} />
-      </button>
+      {canDelete && (
+        <button
+          onClick={deletePost}
+          className="flex items-center hover:text-[#e94e4b] border-none"
+        >
+          <HiOutlineTrash size={18} color="#f14d4a" />
+        </button>
+      )}
     </div>
   );
 };

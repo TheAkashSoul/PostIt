@@ -5,6 +5,7 @@ import ProfileDetails from "@/components/profile/ProfileDetails";
 import Link from "next/link";
 import { CiSettings } from "react-icons/ci";
 import { useQuery } from "@tanstack/react-query";
+import ProfilePosts from "@/components/profile/ProfilePosts";
 
 type params = {
   profile: string;
@@ -35,16 +36,8 @@ const Profile = ({ params }: { params: params }) => {
   });
 
   const userDetails = data?.userData;
+  const postsUploaded = userDetails?.posts;
 
-  // if (data) {
-  //   console.log("data", userDetails);
-  // }
-  // if (error) {
-  //   console.log("error", error);
-  // }
-  // if (isLoading) {
-  //   console.log("isloading", isLoading);
-  // }
   return (
     <main className="min-h-screen md:max-w-lg mx-auto md:border-x md:border-gray-500/20 md:mb-1 mb-14">
       <div className="py-2 sticky top-0 z-30 border-b border-gray-500/20 bg-background flex flex-row items-center justify-between">
@@ -58,10 +51,7 @@ const Profile = ({ params }: { params: params }) => {
         <ProfileDetails details={userDetails} />
       </div>
       <div>
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        <ProfilePosts postUploads={postsUploaded} username={username} />
       </div>
     </main>
   );
