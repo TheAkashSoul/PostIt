@@ -51,6 +51,7 @@ const authOptions = {
     async jwt({ token, user }: { token: any; user: any }) {
       if (user) {
         token.username = user.username;
+        token.id = user._id;
       }
       // console.log("token, user in jwt", token, user);
       return token;
@@ -58,6 +59,7 @@ const authOptions = {
     async session({ session, token }: { session: any; token: any }) {
       if (token) {
         session.user.username = token.username;
+        session.user.id = token.id;
       }
       // console.log("session", session);
       return session;

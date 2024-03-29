@@ -4,22 +4,29 @@ import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { FaRegComment } from "react-icons/fa6";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { HiOutlineTrash } from "react-icons/hi2";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
-import { useQuery } from "@tanstack/react-query";
 
-const PostEvents = ({ likes, comments, postId, userId, username }: any) => {
+type Props = {
+  likes: string[];
+  comments: object[];
+  postId: string;
+  username: string;
+};
+
+const PostEvents = ({ likes, comments, postId, username }: Props) => {
   const { data: session, status } = useSession();
-  // console.log("username", username, "session", session?.user?.username);
+
+  const userId = session?.user.id;
+
   const isLiked = likes?.some((like: string) => like === userId);
-  // console.log("IS liked", isLiked, "likes", likes, "userid", userId);
+
   const sessionUsername = session?.user?.username;
   const [isLike, setIsLike] = useState<boolean>(isLiked);
   const [likeCount, setLikeCount] = useState<number>(likes?.length);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const canDelete = sessionUsername === username ? true : false;
-  // console.log(likes);
 
   const likeToggle = async () => {
     const response = await fetch("/api/likes", {

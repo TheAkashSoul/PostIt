@@ -67,7 +67,7 @@ const PostCard = ({ post, username }: any) => {
           <img
             src={post?.imageUrl}
             alt="image"
-            className="h-full max-h-96 w-auto max-w-full object-contain"
+            className="h-auto max-h-96 w-auto max-w-full object-contain"
           />
         </div>
 
@@ -78,7 +78,6 @@ const PostCard = ({ post, username }: any) => {
             likes={post?.likes}
             comments={post?.comments}
             postId={post?._id}
-            userId={post?.user}
           />
         </div>
       </div>
