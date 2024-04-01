@@ -3,10 +3,16 @@
 import Link from "next/link";
 import PostEvents from "./PostEvents";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { Post } from "@/types/type";
 
-const PostCard = ({ post, username }: any) => {
+type Props = {
+  post: Post;
+  username?: string;
+};
+const PostCard = ({ post, username }: Props) => {
   const user = post?.user;
-  // console.log(user);
+  // console.log("user id", user);
   const fetchUserDetails = async () => {
     try {
       const response = await fetch("/api/userbypost", {
@@ -23,10 +29,14 @@ const PostCard = ({ post, username }: any) => {
     }
   };
 
-  const { data, error, isLoading } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["userDetails"],
     queryFn: fetchUserDetails,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [user, refetch]);
 
   const userDetails = data?.userData;
 

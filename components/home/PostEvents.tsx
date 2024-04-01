@@ -11,7 +11,7 @@ type Props = {
   likes: string[];
   comments: object[];
   postId: string;
-  username: string;
+  username?: string;
 };
 
 const PostEvents = ({ likes, comments, postId, username }: Props) => {

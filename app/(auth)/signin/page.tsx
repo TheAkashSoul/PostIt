@@ -4,11 +4,13 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/common/Loading";
 
 const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [processing, setProcessing] = useState(false);
 
   const router = useRouter();
 
@@ -24,6 +26,7 @@ const Register = () => {
         setErrorMessage("Invalid credentials");
         return;
       }
+      setProcessing(true);
       router.push("/");
     } catch (error) {
       console.log("errror in sign in page", error);
@@ -52,7 +55,7 @@ const Register = () => {
             <div>
               <label
                 htmlFor="email"
-                className="text-base font-medium text-gray-900"
+                className="text-base font-medium text-gray-900 dark:text-gray-100"
               >
                 Email
               </label>
@@ -71,7 +74,7 @@ const Register = () => {
             <div>
               <label
                 htmlFor="password"
-                className="text-base font-medium text-gray-900"
+                className="text-base font-medium text-gray-900 dark:text-gray-100"
               >
                 Password
               </label>
@@ -94,7 +97,7 @@ const Register = () => {
                 type="submit"
                 className="inline-flex w-full items-center justify-center rounded-md bg-foreground px-3 py-3 font-semibold leading-7 text-background hover:bg-foreground/80"
               >
-                Sign In
+                {processing ? <Loading /> : "Sign In"}
               </button>
             </div>
           </div>

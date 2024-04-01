@@ -13,3 +13,15 @@ export type User = {
   __v: number;
   _id: string;
 };
+
+export type Post = {
+  comments: any[];
+  createdAt: string;
+  description: string;
+  imageUrl: string;
+  likes: string[];
+  updatedAt: string;
+  user: string;
+  __v: number;
+  _id: string;
+};
