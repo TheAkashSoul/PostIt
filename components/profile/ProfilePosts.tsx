@@ -4,7 +4,11 @@ import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import PostCard from "../home/PostCard";
 
-const ProfilePosts = ({ postUploads, username }: any) => {
+type Props = {
+  postUploads: string[];
+  username?: string;
+};
+const ProfilePosts = ({ postUploads, username }: Props) => {
   // console.log("posts array", postUploads);
 
   const fetchPost = async (postIds: any) => {
@@ -36,7 +40,9 @@ const ProfilePosts = ({ postUploads, username }: any) => {
 
   return (
     <div>
-      {isLoading && <p>Loading</p>}
+      {isLoading && (
+        <p className="text-center mt-10 font-bold text-lg">Loading</p>
+      )}
       {postDetails &&
         postDetails.map((post: any) => (
           <PostCard key={post?._id} post={post} username={username} />
