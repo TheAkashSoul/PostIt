@@ -29,7 +29,7 @@ const Saved = () => {
     }
   };
 
-  const { data, refetch } = useQuery({
+  const { data } = useQuery({
     queryKey: ["get saved"],
     queryFn: fetchSaved,
   });
@@ -37,10 +37,9 @@ const Saved = () => {
   useEffect(() => {
     if (data) {
       setSavedData(data?.saved?.savedPosts);
+      // console.log(data.saved.savedPosts);
     }
-    refetch();
-  }, [savedData, refetch]);
-  // console.log(savedData);
+  }, []);
 
   return (
     <main className="min-h-screen md:max-w-lg mx-auto md:border-x md:border-gray-500/20 md:mb-1 mb-14">

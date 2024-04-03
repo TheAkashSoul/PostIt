@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     if (saved) {
       return NextResponse.json({ saved });
     }
-    return NextResponse.json({ saved });
+    return NextResponse.json({ saved: "no saved posts" });
   } catch (error) {
     console.log("error in getsaved api", error);
     return NextResponse.json({ error });
