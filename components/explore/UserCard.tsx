@@ -9,7 +9,9 @@ const UserCard = ({ user }: { user: User }) => {
   const followerId = session?.user.id ?? "";
   const followingId = user?._id;
 
-  const [following, setFollowing] = useState<boolean>(false);
+  const [following, setFollowing] = useState<boolean>(
+    user?.followers.includes(followerId)
+  );
 
   useEffect(() => {
     if (session) {
@@ -29,12 +31,11 @@ const UserCard = ({ user }: { user: User }) => {
       });
       if (res.ok) {
         if (following) {
-          setFollowing(false);
+          setFollowing((prev) => !prev);
         } else {
-          setFollowing(true);
+          setFollowing((prev) => !prev);
         }
       }
-      setFollowing((prev) => prev);
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +61,9 @@ const UserCard = ({ user }: { user: User }) => {
       <div className="flex items-center justify-center rounded-sm overflow-hidden">
         <button
           onClick={followToggle}
-          className="bg-blue-500 hover:bg-blue-500/90 w-24 h-7 text-xs font-semibold px-2 py-1 text-white text-center"
+          className={`bg-blue-500 hover:bg-blue-500/90 w-24 h-7 text-xs font-semibold px-2 py-1 text-white text-center ${
+            session?.user.id === user?._id ? "hidden" : ""
+          }`}
         >
           {following ? "Following" : "Follow"}
         </button>
