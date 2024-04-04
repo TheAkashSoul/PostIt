@@ -15,10 +15,9 @@ const UserCard = ({ user }: { user: User }) => {
 
   useEffect(() => {
     if (session) {
-      const isFollowing = user?.followers.includes(followerId);
-      setFollowing(isFollowing);
+      setFollowing(user?.followers.includes(followerId));
     }
-  }, [session, user, followerId]);
+  }, [session, user, followerId, followingId]);
 
   const followToggle = async () => {
     try {
