@@ -4,19 +4,19 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const UserCard = ({ user }: { user: User }) => {
+const UserCard = ({
+  user,
+  isFollowing,
+}: {
+  user: User;
+  isFollowing?: boolean;
+}) => {
   const { data: session, status } = useSession();
   const followerId = session?.user.id ?? "";
   const followingId = user?._id;
+  // console.log("isFollowing", isFollowing, "user", user.name);
 
-  const [following, setFollowing] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (session) {
-      const isFollowing = user?.followers.includes(followerId);
-      setFollowing(isFollowing);
-    }
-  }, [session, user, followerId]);
+  const [following, setFollowing] = useState<boolean>(isFollowing || false);
 
   const followToggle = async () => {
     try {

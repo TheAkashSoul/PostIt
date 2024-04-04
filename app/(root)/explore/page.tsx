@@ -3,10 +3,14 @@
 import UserCard from "@/components/explore/UserCard";
 import { User } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 
 const Explore = () => {
+  const { data: session, status } = useSession();
+  const followerId = session?.user.id ?? "";
+
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [searchUser, setSearchUser] = useState("");
 
@@ -59,7 +63,11 @@ const Explore = () => {
                 item.name.toLowerCase().includes(searchUser)
           )
           .map((user) => (
-            <UserCard key={user._id} user={user} />
+            <UserCard
+              key={user._id}
+              user={user}
+              isFollowing={user.followers.includes(followerId)}
+            />
           ))}
       </div>
     </main>
