@@ -24,7 +24,7 @@ const Explore = () => {
     }
   };
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["Get all users"],
     queryFn: fetchUsers,
   });
@@ -33,6 +33,7 @@ const Explore = () => {
     if (data) {
       setAllUsers(data?.users);
     }
+    refetch();
   }, [data]);
 
   return (
