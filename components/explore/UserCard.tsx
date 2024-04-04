@@ -17,7 +17,7 @@ const UserCard = ({ user }: { user: User }) => {
     if (session) {
       setFollowing(user?.followers.includes(followerId));
     }
-  }, []);
+  }, [session, user, followerId]);
 
   const followToggle = async () => {
     try {
