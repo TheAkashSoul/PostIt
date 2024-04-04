@@ -1,16 +1,13 @@
 "use client";
 
+import Loading from "@/components/common/Loading";
 import UserCard from "@/components/explore/UserCard";
 import { User } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 
 const Explore = () => {
-  const { data: session, status } = useSession();
-  const followerId = session?.user.id ?? "";
-
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [searchUser, setSearchUser] = useState("");
 
@@ -28,7 +25,7 @@ const Explore = () => {
     }
   };
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["Get all users"],
     queryFn: fetchUsers,
   });
@@ -37,8 +34,7 @@ const Explore = () => {
     if (data) {
       setAllUsers(data?.users);
     }
-    refetch();
-  }, [data, refetch]);
+  }, [data]);
 
   return (
     <main className="min-h-screen md:max-w-lg mx-auto md:border-x md:border-gray-500/20 md:mb-1 mb-14">
@@ -55,20 +51,18 @@ const Explore = () => {
         </div>
       </div>
       <div className="mt-3">
-        {allUsers
-          ?.filter((item) =>
-            searchUser.toLowerCase() === ""
-              ? item
-              : item.username.toLowerCase().includes(searchUser) ||
-                item.name.toLowerCase().includes(searchUser)
-          )
-          .map((user) => (
-            <UserCard
-              key={user._id}
-              user={user}
-              isFollowing={user.followers.includes(followerId)}
-            />
-          ))}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          allUsers
+            ?.filter((item) =>
+              searchUser.toLowerCase() === ""
+                ? item
+                : item.username.toLowerCase().includes(searchUser) ||
+                  item.name.toLowerCase().includes(searchUser)
+            )
+            .map((user) => <UserCard key={user._id} user={user} />)
+        )}
       </div>
     </main>
   );
