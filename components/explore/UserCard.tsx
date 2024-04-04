@@ -9,13 +9,12 @@ const UserCard = ({ user }: { user: User }) => {
   const followerId = session?.user.id ?? "";
   const followingId = user?._id;
 
-  const [following, setFollowing] = useState<boolean>(
-    user?.followers.includes(followerId)
-  );
+  const [following, setFollowing] = useState<boolean>(false);
 
   useEffect(() => {
     if (session) {
-      setFollowing(user?.followers.includes(followerId));
+      const isFollowing = user?.followers.includes(followerId);
+      setFollowing(isFollowing);
     }
   }, [session, user, followerId]);
 
