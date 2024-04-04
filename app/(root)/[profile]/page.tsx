@@ -49,7 +49,7 @@ const Profile = ({ params }: { params: params }) => {
       </div>
 
       <div className=" px-2 md:px-10">
-        <ProfileDetails details={userDetails} />
+        <ProfileDetails details={userDetails} loading={isLoading} />
       </div>
       <div>
         <ProfilePosts postUploads={postsUploaded} username={username} />

@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import PostCard from "../home/PostCard";
+import Loading from "../common/Loading";
 
 type Props = {
   postUploads: string[];
@@ -41,7 +42,9 @@ const ProfilePosts = ({ postUploads, username }: Props) => {
   return (
     <div>
       {isLoading && (
-        <p className="text-center mt-10 font-bold text-lg">Loading</p>
+        <span>
+          <Loading />
+        </span>
       )}
       {postDetails &&
         postDetails.map((post: any) => (
