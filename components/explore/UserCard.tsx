@@ -1,14 +1,43 @@
 "use client";
 import { User } from "@/types/type";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const UserCard = ({ user }: { user: User }) => {
-  // console.log("user card", user);
-  const [isFollowing, setIsFollowing] = useState<boolean>(false);
+  const { data: session, status } = useSession();
+  const followerId = session?.user.id ?? "";
+  const followingId = user?._id;
 
-  const followToggle = () => {
-    setIsFollowing(!isFollowing);
+  const [following, setFollowing] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (session) {
+      const isFollowing = user?.followers.includes(followerId);
+      setFollowing(isFollowing);
+    }
+  }, [session, user, followerId]);
+
+  const followToggle = async () => {
+    try {
+      const res = await fetch("/api/follow", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ followerId, followingId }),
+      });
+      if (res.ok) {
+        if (following) {
+          setFollowing(false);
+        } else {
+          setFollowing(true);
+        }
+      }
+      setFollowing((prev) => prev);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="flex flex-row items-center justify-between p-4 border-b border-gray-500/20">
@@ -33,7 +62,7 @@ const UserCard = ({ user }: { user: User }) => {
           onClick={followToggle}
           className="bg-blue-500 hover:bg-blue-500/90 w-24 h-7 text-xs font-semibold px-2 py-1 text-white text-center"
         >
-          {isFollowing ? "Following" : "Follow"}
+          {following ? "Following" : "Follow"}
         </button>
       </div>
     </div>
