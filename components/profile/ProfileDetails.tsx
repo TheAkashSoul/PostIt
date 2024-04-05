@@ -7,8 +7,9 @@ import { useEffect, useState } from "react";
 type Props = {
   details: User;
   loading?: boolean;
+  setIsUpdate?: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const ProfileDetails = ({ details, loading }: Props) => {
+const ProfileDetails = ({ details, loading, setIsUpdate }: Props) => {
   const { data: session, status } = useSession();
   const userName = session?.user.username;
   const followerId = session?.user.id ?? "";
@@ -66,7 +67,11 @@ const ProfileDetails = ({ details, loading }: Props) => {
       <div className="flex flex-col items-start justify-between gap-1">
         <div className="w-full flex flex-row items-center justify-between gap-2 mt-2">
           <div className="md:w-16 md:h-16 w-14 h-14 rounded-full bg-black overflow-hidden">
-            <img />
+            <img
+              src={details?.displaypic}
+              alt="profile pic"
+              className="w-full h-full object-cover"
+            />
           </div>
 
           <div className="flex flex-row items-center md:gap-6 gap-6">
@@ -99,8 +104,12 @@ const ProfileDetails = ({ details, loading }: Props) => {
           <p className="font-normal text-xs leading-none">{details?.bio}</p>
         </div>
         {!loading &&
+          status === "authenticated" &&
           (isAdmin ? (
-            <button className="bg-blue-500 hover:bg-blue-500/90 px-6 py-1 font-semibold text-base text-background rounded-sm w-full md:w-fit my-3">
+            <button
+              onClick={() => setIsUpdate && setIsUpdate(true)}
+              className="bg-blue-500 hover:bg-blue-500/90 px-6 py-1 font-semibold text-base text-background rounded-sm w-full md:w-fit my-3"
+            >
               Edit Profile
             </button>
           ) : (

@@ -40,7 +40,7 @@ const Saved = () => {
       // console.log(data.saved.savedPosts);
     }
     refetch();
-  }, [data, savedData]);
+  }, [data, savedData, refetch]);
 
   return (
     <main className="min-h-screen md:max-w-lg mx-auto md:border-x md:border-gray-500/20 md:mb-1 mb-14">
