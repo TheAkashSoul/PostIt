@@ -12,6 +12,7 @@ export default async function middleware(req: NextRequest) {
     "/post",
     "/saved",
     "/settings",
+    "/view/[posts]",
     "/signin",
     "/signup",
   ];

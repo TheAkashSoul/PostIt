@@ -7,6 +7,7 @@ import { HiOutlineTrash } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 type Props = {
   likes: string[];
@@ -16,7 +17,9 @@ type Props = {
 };
 
 const PostEvents = ({ likes, comments, postId, username }: Props) => {
+  // console.log("likes", likes);
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   const userId = session?.user.id;
 
@@ -29,6 +32,11 @@ const PostEvents = ({ likes, comments, postId, username }: Props) => {
   const [savedData, setSavedData] = useState([]);
 
   const canDelete = sessionUsername === username ? true : false;
+
+  useEffect(() => {
+    setLikeCount(likes?.length);
+    setIsLike(isLiked);
+  }, [likes, isLiked]);
 
   const likeToggle = async () => {
     const response = await fetch("/api/likes", {
@@ -94,9 +102,16 @@ const PostEvents = ({ likes, comments, postId, username }: Props) => {
         },
         body: JSON.stringify({ postId, userId }),
       });
+      if (response.ok) {
+        router.back();
+      }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleComments = (postId: string) => {
+    router.push(`/view/${postId}`);
   };
   return (
     <div className="flex flex-row items-center justify-between">
@@ -113,7 +128,10 @@ const PostEvents = ({ likes, comments, postId, username }: Props) => {
         <p className="font-light text-xs">{likeCount}</p>
       </button>
 
-      <button className="flex flex-row items-center gap-1 hover:text-[#00BA7c] border-none">
+      <button
+        onClick={() => handleComments(postId)}
+        className="flex flex-row items-center gap-1 hover:text-[#00BA7c] border-none"
+      >
         <FaRegComment size={16} />
         <p className="font-light text-xs">{comments?.length}</p>
       </button>

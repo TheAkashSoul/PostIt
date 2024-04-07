@@ -27,6 +27,7 @@ const ProfileUpdate = ({
     bio: bioValue,
     displaypic: displayPic,
     _id: _id,
+    prevUsername: username,
   };
   const updateProfile = async () => {
     try {
@@ -45,8 +46,8 @@ const ProfileUpdate = ({
         setIsLoading(false);
         setIsUpdate(false);
       } else {
-        return;
         setIsLoading(false);
+        return;
       }
     } catch (error) {
       console.log(error);

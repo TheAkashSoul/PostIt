@@ -12,7 +12,7 @@ type Props = {
 };
 const PostCard = ({ post, username }: Props) => {
   const user = post?.user;
-  // console.log("user id", user);
+  // console.log("user id", post);
   const fetchUserDetails = async () => {
     try {
       const response = await fetch("/api/userbypost", {
