@@ -46,14 +46,11 @@ const Post = () => {
   };
 
   useEffect(() => {
-    // check if the image url public url or not
-    const validExtensions = [".jpg", ".jpeg", ".png", ".gif", ".bmp"];
-    const urlLower = imageUrl?.toLowerCase();
-    const isValidExtension = validExtensions.some((ext) =>
-      urlLower.endsWith(ext)
-    );
-
-    if (description.trim() && description.length <= 120 && isValidExtension) {
+    if (
+      description.trim() &&
+      description.length <= 120 &&
+      imageUrl.length > 10
+    ) {
       setCanPost(true);
     } else {
       setCanPost(false);
@@ -117,6 +114,7 @@ const Post = () => {
                 src={imageUrl}
                 className="object-contain h-fit w-fit max-h-64 max-w-full"
                 alt="Enter public image url only"
+                onError={() => setCanPost(false)}
               />
             )}
           </div>
