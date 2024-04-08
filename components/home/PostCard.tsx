@@ -2,43 +2,33 @@
 
 import Link from "next/link";
 import PostEvents from "./PostEvents";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { Post } from "@/types/type";
+import { useEffect, useState } from "react";
+import { Post, User } from "@/types/type";
 
 type Props = {
   post: Post;
   username?: string;
 };
 const PostCard = ({ post, username }: Props) => {
-  const user = post?.user;
-  // console.log("user id", post);
-  const fetchUserDetails = async () => {
-    try {
-      const response = await fetch("/api/userbypost", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user }),
-      });
-
-      return response.json();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const { data, refetch } = useQuery({
-    queryKey: ["userDetails"],
-    queryFn: fetchUserDetails,
-  });
-
+  const [userDetails, setUserDetails] = useState<User | null>(null);
   useEffect(() => {
-    refetch();
-  }, [user, refetch]);
-
-  const userDetails = data?.userData;
+    const fetchUserDetails = async () => {
+      try {
+        const response = await fetch("/api/userbypost", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user: post?.user }),
+        });
+        const data = await response.json();
+        setUserDetails(data?.userData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUserDetails();
+  }, [post?.user]);
 
   return (
     <div className="flex flex-row gap-2 w-full items-start border-b border-gray-600/20 md:p-4 p-4">

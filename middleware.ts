@@ -12,7 +12,7 @@ export default async function middleware(req: NextRequest) {
     "/post",
     "/saved",
     "/settings",
-    "/view/[posts]",
+    "/view/:path*",
     "/signin",
     "/signup",
   ];
@@ -47,6 +47,7 @@ export const config = {
     "/saved",
     "/:username",
     "/settings",
+    "/view/:path*",
     "/signin",
     "/signup",
   ],
