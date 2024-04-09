@@ -5,7 +5,8 @@ import { IoMdArrowBack } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import PostCard from "@/components/home/PostCard";
-import PostEvents from "@/components/home/PostEvents";
+import PostComments from "@/components/home/PostComments";
+import CommentsList from "@/components/home/CommentsList";
 
 type Props = {
   params: {
@@ -19,7 +20,7 @@ type PostDetailsType = {
 };
 const View = ({ params }: Props) => {
   const { posts } = params;
-  //   console.log(posts);
+  // console.log(posts);
   const [postDetails, setPostDetails] = useState<PostDetailsType>({});
   const router = useRouter();
 
@@ -65,6 +66,12 @@ const View = ({ params }: Props) => {
           post={postDetails?.postDetails}
           username={postDetails?.user?.username}
         />
+      </div>
+      <div className="px-4 py-2 bg-[#edecec]/30 dark:bg-[#201f1f]/30">
+        <PostComments postId={posts} />
+      </div>
+      <div className="px-4 py-2 bg-[#edecec]/30 dark:bg-[#201f1f]/30">
+        <CommentsList postId={posts} />
       </div>
     </main>
   );

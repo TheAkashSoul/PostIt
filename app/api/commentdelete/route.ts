@@ -4,8 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(req: NextRequest) {
   try {
-    const { postId, commentId } = await req.json();
     await connectMongoDB();
+
+    const { postId, commentId } = await req.json();
 
     const post = await Post.findById(postId);
 
