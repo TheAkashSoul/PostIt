@@ -35,6 +35,13 @@ const Register = () => {
   return (
     <div className="h-screen w-screen bg-neutral-400 flex items-center justify-center p-6">
       <div className="md:w-96 w-full max-w-lg bg-background flex flex-col md:p-12 p-6">
+        <div className="mb-4 flex flex-row items-center gap-2">
+          <p className="text-xl font-bold">Credentials - </p>
+          <div>
+            <p className="text-xs">demo@gmail.com</p>
+            <p className="text-xs">demo123</p>
+          </div>
+        </div>
         <div className="flex flex-col">
           <h2 className="font-bold text-4xl">Sign In</h2>
           <div className="flex flex-row flex-wrap gap-2 mt-2">
